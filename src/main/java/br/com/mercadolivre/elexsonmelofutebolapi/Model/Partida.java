@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 
 @Entity
 @EqualsAndHashCode
@@ -25,9 +27,7 @@ public class Partida {
     @Column
     private String result;
     @Column
-    private String date;
-    @Column
-    private String time;
+    private LocalDateTime dateAndTime;
     @Column
     private String stadium;
 
@@ -39,8 +39,7 @@ public class Partida {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.result = result;
-        this.date = date;
-        this.time = time;
+        this.dateAndTime = getDateAndTime();
         this.stadium = stadium;
     }
 }

@@ -29,8 +29,7 @@ public class PartidaService {
             partidaExistente.setHomeTeam(novaPartida.getHomeTeam());
             partidaExistente.setAwayTeam(novaPartida.getAwayTeam());
             partidaExistente.setResult(novaPartida.getResult());
-            partidaExistente.setDate(novaPartida.getDate());
-            partidaExistente.setTime(novaPartida.getTime());
+            partidaExistente.setDateAndTime(novaPartida.getDateAndTime());
             partidaExistente.setStadium(novaPartida.getStadium());
 
             partidaRepository.save(partidaExistente);
