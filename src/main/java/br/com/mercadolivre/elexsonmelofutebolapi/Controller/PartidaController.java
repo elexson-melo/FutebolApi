@@ -27,6 +27,15 @@ public class PartidaController {
         return partidaService.findByEstadio(estadio);
     }
 
+    @GetMapping("/semgols")
+    public List<Partida> findPartidaSemGols() {
+        return partidaService.findPartidaSemGols();
+    }
+    @GetMapping("/goleadas/{diferenca}")
+    public List<Partida> findGoleadas(@PathVariable int diferenca) {
+        return partidaService.findGoleadas(diferenca);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Partida> cadastrarPartida(@RequestBody Partida partida) {
         Partida novaPartida = partidaService.save(partida);

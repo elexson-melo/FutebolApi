@@ -42,12 +42,16 @@ public class PartidaService {
         return partida;
     }
 
-    public List<Partida> getPartidaSemGols() {
-        return partidaRepository.findBySemGols();
-    }
-
     public List<Partida> findByEstadio(String estadio) {
         return partidaRepository.findByEstadio(estadio);
+    }
+
+    public List<Partida> findPartidaSemGols() {
+        return partidaRepository.findSemGols();
+    }
+
+    public List<Partida> findGoleadas(int diferenca) {
+        return partidaRepository.findByGoleadas(diferenca);
     }
 }
 

@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface PartidaRepository extends JpaRepository<Partida, Long> {
     @Query("SELECT p FROM Partida p WHERE ABS(p.golsCasa - p.golsCasa) >= :diferenca")
-    List<Partida> findByGoleada(int diferenca);
+    List<Partida> findByGoleadas(int diferenca);
 
     @Query("SELECT p FROM Partida p WHERE p.golsCasa = 0 AND p.golsFora = 0")
-    List<Partida> findBySemGols();
+    List<Partida> findSemGols();
 
     List<Partida> findByEstadio(String estadio);
 }
