@@ -31,9 +31,20 @@ public class PartidaController {
     public List<Partida> findPartidaSemGols() {
         return partidaService.findPartidaSemGols();
     }
+
     @GetMapping("/goleadas/{diferenca}")
     public List<Partida> findGoleadas(@PathVariable int diferenca) {
         return partidaService.findGoleadas(diferenca);
+    }
+
+    @GetMapping("/{id}")
+    public Partida findPartidasById(@PathVariable String id) {
+        return partidaService.findPartidasById(id);
+    }
+    @GetMapping("/clube/{clube}/{mandante}")
+    public List<Partida> buscarPorClube(@PathVariable String clube, @PathVariable boolean mandante) {
+       // return partidaService.findByClube(clube, mandante);
+        return null;
     }
 
     @PostMapping("/add")

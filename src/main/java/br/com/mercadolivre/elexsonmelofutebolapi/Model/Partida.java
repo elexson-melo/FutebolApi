@@ -38,10 +38,10 @@ public class Partida {
     public Partida() {
 
     }
-    public Partida(String timeCasa, String timeFora, String resultado, LocalDateTime dataEHora, String estadio, int golsCasa, int golsFora) {
+    public Partida(String timeCasa,String timeFora,String resultado,LocalDateTime dataEHora,String estadio,int golsCasa, int golsFora) {
         this.timeCasa = timeCasa;
         this.timeFora = timeFora;
-        this.resultado  = resultado;
+        this.resultado = resultado;
         this.golsCasa = golsCasa;
         this.golsFora = golsFora;
         this.dataEHora = dataEHora;

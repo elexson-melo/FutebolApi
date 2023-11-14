@@ -24,9 +24,8 @@ public class PartidaService {
 
         if (partidaExistente != null) {
             partidaExistente.setTimeCasa(novaPartida.getTimeFora());
-            partidaExistente.setTimeCasa(novaPartida.getTimeFora());
             partidaExistente.setGolsCasa(novaPartida.getGolsFora());
-            partidaExistente.setGolsCasa(novaPartida.getGolsFora());
+            partidaExistente.setResultado(partidaExistente.getResultado());
             partidaExistente.setDataEHora(novaPartida.getDataEHora());
             partidaExistente.setEstadio(novaPartida.getEstadio());
 
@@ -53,6 +52,17 @@ public class PartidaService {
     public List<Partida> findGoleadas(int diferenca) {
         return partidaRepository.findByGoleadas(diferenca);
     }
+
+    public Partida findPartidasById(String id) {
+       // return partidaRepository.findById(id);
+        return null;
+    }
+
+    public Partida findByClube(String clube, boolean mandante) {
+        return (Partida) partidaRepository.findByClube(clube, mandante);
+
+    }
+
 }
 
 
