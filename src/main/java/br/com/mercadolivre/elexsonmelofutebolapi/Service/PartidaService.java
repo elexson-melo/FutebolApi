@@ -42,7 +42,7 @@ public class PartidaService {
         return partida;
     }
     public List<Partida> getDrawMatches() {
-        return partidaRepository.findByGolsCasaAndGolsFora(0, 0);
+        return partidaRepository.findBySemGols();
     }
 
     public List<Partida> getMatchesByStadium(String estadio) {
