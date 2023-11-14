@@ -16,7 +16,5 @@ public interface PartidaRepository extends JpaRepository<Partida, Long> {
     List<Partida> findSemGols();
 
     List<Partida> findByEstadio(String estadio);
-
-    List<Partida> findByClube(String clube, boolean mandante);
 }
 

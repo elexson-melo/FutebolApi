@@ -53,16 +53,6 @@ public class PartidaService {
         return partidaRepository.findByGoleadas(diferenca);
     }
 
-    public Partida findPartidasById(String id) {
-       // return partidaRepository.findById(id);
-        return null;
-    }
-
-    public Partida findByClube(String clube, boolean mandante) {
-        return (Partida) partidaRepository.findByClube(clube, mandante);
-
-    }
-
 }
 
 
