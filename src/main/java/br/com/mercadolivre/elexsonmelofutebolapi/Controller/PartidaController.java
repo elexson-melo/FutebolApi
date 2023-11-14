@@ -21,6 +21,12 @@ public class PartidaController {
     public List<Partida> listarPartidas() {
         return partidaService.listarPartidas();
     }
+
+    @GetMapping("/by-estadio/{estadio}")
+    public List<Partida> findByEstadio(@PathVariable String estadio) {
+        return partidaService.findByEstadio(estadio);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Partida> cadastrarPartida(@RequestBody Partida partida) {
         Partida novaPartida = partidaService.save(partida);
@@ -37,3 +43,4 @@ public class PartidaController {
         partidaService.deletarPartida(id);
     }
 }
+

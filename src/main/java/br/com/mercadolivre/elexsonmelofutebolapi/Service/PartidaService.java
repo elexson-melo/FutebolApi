@@ -41,15 +41,16 @@ public class PartidaService {
     public Partida save(Partida partida) {
         return partida;
     }
+
     public List<Partida> getPartidaSemGols() {
         return partidaRepository.findBySemGols();
     }
 
-    public List<Partida> getPartidaPorEstadio(String estadio) {
+    public List<Partida> findByEstadio(String estadio) {
         return partidaRepository.findByEstadio(estadio);
     }
-
 }
+
 
 
 
