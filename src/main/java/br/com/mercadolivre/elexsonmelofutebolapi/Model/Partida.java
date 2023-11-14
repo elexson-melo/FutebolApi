@@ -21,25 +21,30 @@ public class Partida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private String homeTeam;
+    private String timeCasa;
     @Column
-    private String awayTeam;
+    private String timeFora;
     @Column
-    private String result;
+    private String resultado;
     @Column
-    private LocalDateTime dateAndTime;
+    private int golsCasa;
     @Column
-    private String stadium;
-
+    private int golsFora;
+    @Column
+    private LocalDateTime dataEHora;
+    @Column
+    private String estadio;
 
     public Partida() {
 
     }
-    public Partida(String homeTeam, String awayTeam, String result, String date, String time, String stadium) {
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
-        this.result = result;
-        this.dateAndTime = getDateAndTime();
-        this.stadium = stadium;
+    public Partida(String timeCasa, String timeFora, String resultado, LocalDateTime dataEHora, String estadio, int golsCasa, int golsFora) {
+        this.timeCasa = timeCasa;
+        this.timeFora = timeFora;
+        this.resultado  = resultado;
+        this.golsCasa = golsCasa;
+        this.golsFora = golsFora;
+        this.dataEHora = dataEHora;
+        this.estadio = estadio;
     }
 }

@@ -21,7 +21,6 @@ public class PartidaController {
     public List<Partida> listarPartidas() {
         return partidaService.listarPartidas();
     }
-
     @PostMapping("/add")
     public ResponseEntity<Partida> cadastrarPartida(@RequestBody Partida partida) {
         Partida novaPartida = partidaService.save(partida);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,23 +19,21 @@ public class PartidaService {
         return partidaRepository.findAll();
     }
 
-    public Partida cadastrarPartidas(Partida partida) {
-        return partidaRepository.save(partida);
-    }
-
     public void atualizarPartida(Long id, Partida novaPartida) {
         Partida partidaExistente = partidaRepository.findById(id).orElse(null);
 
         if (partidaExistente != null) {
-            partidaExistente.setHomeTeam(novaPartida.getHomeTeam());
-            partidaExistente.setAwayTeam(novaPartida.getAwayTeam());
-            partidaExistente.setResult(novaPartida.getResult());
-            partidaExistente.setDateAndTime(novaPartida.getDateAndTime());
-            partidaExistente.setStadium(novaPartida.getStadium());
+            partidaExistente.setTimeCasa(novaPartida.getTimeFora());
+            partidaExistente.setTimeCasa(novaPartida.getTimeFora());
+            partidaExistente.setGolsCasa(novaPartida.getGolsFora());
+            partidaExistente.setGolsCasa(novaPartida.getGolsFora());
+            partidaExistente.setDataEHora(novaPartida.getDataEHora());
+            partidaExistente.setEstadio(novaPartida.getEstadio());
 
             partidaRepository.save(partidaExistente);
         }
     }
+
     public void deletarPartida(Long id) {
         partidaRepository.deleteById(id);
     }
@@ -42,4 +41,18 @@ public class PartidaService {
     public Partida save(Partida partida) {
         return partida;
     }
+    public List<Partida> getDrawMatches() {
+        return partidaRepository.findByGolsCasaAndGolsFora(0, 0);
+    }
+
+    public List<Partida> getMatchesByStadium(String estadio) {
+        return partidaRepository.findByEstadio(estadio);
+    }
+
 }
+
+
+
+
+
+        
