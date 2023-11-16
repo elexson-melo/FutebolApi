@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PartidaService {
@@ -20,40 +21,56 @@ public class PartidaService {
     }
 
     public void atualizarPartida(Long id, Partida novaPartida) {
-        Partida partidaExistente = partidaRepository.findById(id).orElse(null);
+        Optional<Partida> optionalPartida = partidaRepository.findById(id);
 
-        if (partidaExistente != null) {
-            partidaExistente.setTimeCasa(novaPartida.getTimeFora());
-            partidaExistente.setGolsCasa(novaPartida.getGolsFora());
-            partidaExistente.setResultado(partidaExistente.getResultado());
-            partidaExistente.setDataEHora(novaPartida.getDataEHora());
-            partidaExistente.setEstadio(novaPartida.getEstadio());
+        if (optionalPartida.isPresent()) {
+            Partida partida = optionalPartida.get();
+            partida.setClubeMandante(novaPartida.getClubeMandante());
+            partida.setClubeVisitante(novaPartida.getClubeVisitante());
+            partida.setResultadoMandante(novaPartida.getResultadoMandante());
+            partida.setResultadoVisitante(novaPartida.getResultadoVisitante());
+            partida.setResultado(novaPartida.getResultado());
+            partida.setDataHora(novaPartida.getDataHora());
+            partida.setEstadio(novaPartida.getEstadio());
 
-            partidaRepository.save(partidaExistente);
+            partidaRepository.save(partida);
         }
     }
 
-    public void deletarPartida(Long id) {
-        partidaRepository.deleteById(id);
+    public void deletarPartida(String clubeMandante, String clubeVisitante, LocalDateTime dataHora) {
+       // partidaRepository.deletar(clubeMandante, clubeVisitante, dataHora);
     }
 
     public Partida save(Partida partida) {
         return partida;
     }
 
-    public List<Partida> findByEstadio(String estadio) {
+    public List<Partida> buscarPorEstadio(String estadio) {
         return partidaRepository.findByEstadio(estadio);
     }
 
-    public List<Partida> findPartidaSemGols() {
-        return partidaRepository.findSemGols();
+    public List<Partida> buscarPorSemGols() {
+        return partidaRepository.buscarPorSemGols();
     }
 
-    public List<Partida> findGoleadas(int diferenca) {
-        return partidaRepository.findByGoleadas(diferenca);
+    public List<Partida> findGoleada(int diferenca) {
+        return partidaRepository.findByGoleada(diferenca);
     }
 
+    public List<Partida> buscarPartidasPorClube(String nomeClube, String tipo) {
+        if ("mandante".equalsIgnoreCase(tipo)) {
+            return partidaRepository.findByClubeMandante(nomeClube);
+        } else if ("visitante".equalsIgnoreCase(tipo)) {
+            return partidaRepository.findByClubeVisitante(nomeClube);
+        } else {
+            return partidaRepository.findByClubeMandanteOrClubeVisitante(nomeClube, nomeClube);
+        }
+    }
 }
+
+
+
+
 
 
 

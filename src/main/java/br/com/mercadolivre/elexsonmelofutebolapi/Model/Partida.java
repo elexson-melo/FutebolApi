@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@EqualsAndHashCode
 @Getter
 @Setter
 @AllArgsConstructor
+@EqualsAndHashCode
 @Table(name = "partidas")
 public class Partida {
     @Id
@@ -21,30 +21,33 @@ public class Partida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private String timeCasa;
+    private String clubeMandante;
     @Column
-    private String timeFora;
+    private String clubeVisitante;
     @Column
     private String resultado;
     @Column
-    private int golsCasa;
+    private int resultadoMandante;
     @Column
-    private int golsFora;
+    private int resultadoVisitante;
     @Column
-    private LocalDateTime dataEHora;
+    private LocalDateTime dataHora;
     @Column
     private String estadio;
+
+    public Partida (String clubeMandante, String clubeVisitante, String resultado, LocalDateTime dataHora, String estadio, int resultadoMandante, int resultadoVisitante) {
+        this.clubeMandante = clubeMandante;
+        this.clubeVisitante = clubeVisitante;
+        this.resultado = resultado;
+        this.resultadoMandante = resultadoMandante;
+        this.resultadoVisitante = resultadoVisitante;
+        this.dataHora = dataHora;
+        this.estadio = estadio;
+    }
 
     public Partida() {
 
     }
-    public Partida(String timeCasa,String timeFora,String resultado,LocalDateTime dataEHora,String estadio,int golsCasa, int golsFora) {
-        this.timeCasa = timeCasa;
-        this.timeFora = timeFora;
-        this.resultado = resultado;
-        this.golsCasa = golsCasa;
-        this.golsFora = golsFora;
-        this.dataEHora = dataEHora;
-        this.estadio = estadio;
-    }
 }
+
+

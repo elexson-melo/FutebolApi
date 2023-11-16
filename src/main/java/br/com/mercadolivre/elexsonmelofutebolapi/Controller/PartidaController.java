@@ -1,12 +1,13 @@
 package br.com.mercadolivre.elexsonmelofutebolapi.Controller;
 
 import br.com.mercadolivre.elexsonmelofutebolapi.Model.Partida;
-import br.com.mercadolivre.elexsonmelofutebolapi.Repository.PartidaRepository;
 import br.com.mercadolivre.elexsonmelofutebolapi.Service.PartidaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -17,25 +18,6 @@ public class PartidaController {
     @Autowired
     private PartidaService partidaService;
 
-    @GetMapping
-    public List<Partida> listarPartidas() {
-        return partidaService.listarPartidas();
-    }
-
-    @GetMapping("/by-estadio/{estadio}")
-    public List<Partida> findByEstadio(@PathVariable String estadio) {
-        return partidaService.findByEstadio(estadio);
-    }
-
-    @GetMapping("/semgols")
-    public List<Partida> findPartidaSemGols() {
-        return partidaService.findPartidaSemGols();
-    }
-
-    @GetMapping("/goleadas/{diferenca}")
-    public List<Partida> findGoleadas(@PathVariable int diferenca) {
-        return partidaService.findGoleadas(diferenca);
-    }
 
     @PostMapping("/add")
     public ResponseEntity<Partida> cadastrarPartida(@RequestBody Partida partida) {
@@ -43,14 +25,47 @@ public class PartidaController {
         return new ResponseEntity<>(novaPartida, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public void atualizarPartida(@PathVariable Long id, @RequestBody Partida novaPartida) {
-        partidaService.atualizarPartida(id, novaPartida);
+    @GetMapping
+    public List<Partida> listarPartidas() {
+        return partidaService.listarPartidas();
     }
 
-    @DeleteMapping("/{id}")
-    public void deletarPartida(@PathVariable Long id) {
-        partidaService.deletarPartida(id);
+    @GetMapping("/by-estadio/{estadio}")
+    public List<Partida> buscarPorEstadio(@RequestParam String estadio) {
+        return partidaService.buscarPorEstadio(estadio);
+    }
+
+    @GetMapping("/goleada/{diferenca}")
+    public ResponseEntity<List<Partida>> buscarGoleada(@PathVariable int diferenca) {
+        List<Partida> partidas = partidaService.findGoleada(diferenca);
+        return new ResponseEntity<>(partidas, HttpStatus.OK);
+    }
+
+    @GetMapping("/semgols")
+    public ResponseEntity<List<Partida>> buscarPartidasSemGols() {
+        List<Partida> partidas = partidaService.buscarPorSemGols();
+        return new ResponseEntity<>(partidas, HttpStatus.OK);
+    }
+
+    @GetMapping("/clube/{nomeClube}")
+    public ResponseEntity<List<Partida>> buscarPartidasPorClube(@PathVariable String nomeClube,
+                                                                @RequestParam(required = false) String tipo) {
+        List<Partida> partidas = partidaService.buscarPartidasPorClube(nomeClube, tipo);
+        return ResponseEntity.ok(partidas);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Partida> atualizarPartida(@PathVariable Long id, @RequestBody Partida novaPartida) {
+        partidaService.atualizarPartida(id, novaPartida);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{clubeMandante}/{clubeVisitante}/{dataHora}")
+    public void deletarPartida(@PathVariable String clubeMandante, @PathVariable String clubeVisitante,
+                               @PathVariable String dataHora) {
+        LocalDateTime dateTime = LocalDateTime.parse(dataHora);
+        partidaService.deletarPartida(clubeMandante, clubeVisitante, dateTime);
     }
 }
+
 
