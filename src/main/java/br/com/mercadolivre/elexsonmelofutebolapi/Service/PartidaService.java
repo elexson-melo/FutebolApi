@@ -19,7 +19,6 @@ public class PartidaService {
     public List<Partida> listarPartidas() {
         return partidaRepository.findAll();
     }
-
     public void atualizarPartida(Long id, Partida novaPartida) {
         Optional<Partida> optionalPartida = partidaRepository.findById(id);
 
@@ -36,9 +35,10 @@ public class PartidaService {
             partidaRepository.save(partida);
         }
     }
+    public void deletarPartida(Long id) {
+        partidaRepository.deleteById(id);
 
-    public void deletarPartida(String clubeMandante, String clubeVisitante, LocalDateTime dataHora) {
-       // partidaRepository.deletar(clubeMandante, clubeVisitante, dataHora);
+
     }
 
     public Partida save(Partida partida) {
@@ -65,6 +65,9 @@ public class PartidaService {
         } else {
             return partidaRepository.findByClubeMandanteOrClubeVisitante(nomeClube, nomeClube);
         }
+    }
+
+    public void deletarPartida(String clubeMandante, String clubeVisitante, LocalDateTime dateTime) {
     }
 }
 
