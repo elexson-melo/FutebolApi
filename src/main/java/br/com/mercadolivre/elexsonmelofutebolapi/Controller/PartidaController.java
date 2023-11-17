@@ -24,7 +24,6 @@ public class PartidaController {
         Partida novaPartida = partidaService.save(partida);
         return new ResponseEntity<>(novaPartida, HttpStatus.CREATED);
     }
-
     @GetMapping
     public List<Partida> listarPartidas() {
         return partidaService.listarPartidas();
@@ -53,6 +52,15 @@ public class PartidaController {
         List<Partida> partidas = partidaService.buscarPartidasPorClube(nomeClube, tipo);
         return ResponseEntity.ok(partidas);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Partida> obterPartidaPorId(@PathVariable int id) {
+        Partida partida = (Partida) partidaService.obterPartidaPorId(id);
+        if (partida != null) {
+            return ResponseEntity.ok(partida);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Partida> atualizarPartida(@PathVariable Long id, @RequestBody Partida novaPartida) {
@@ -66,6 +74,11 @@ public class PartidaController {
         LocalDateTime dateTime = LocalDateTime.parse(dataHora);
         partidaService.deletarPartida(clubeMandante, clubeVisitante, dateTime);
     }
+    @DeleteMapping("/{id}")
+    public void deletarPartida(@PathVariable Long id) {
+        partidaService.deletarPartida(id);
+    }
+
 }
 
 

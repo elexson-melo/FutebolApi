@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -23,6 +24,11 @@ public interface PartidaRepository extends JpaRepository<Partida, Long> {
     List<Partida> findByClubeVisitante(String clubeVisitante);
 
     List<Partida> findByClubeMandanteOrClubeVisitante(String clubeMandante, String clubeVisitante);
+    List<Partida> findByClubeMandanteAndDataHoraAfter(String clubeMandante, Date dataHora);
+    List<Partida> findByClubeVisitanteAndDataHoraAfter(String clubeVisitante, Date dataHora);
 
+    static List<Partida> obterPartidaPorId(int id) {
+        return null;
+    }
 }
 

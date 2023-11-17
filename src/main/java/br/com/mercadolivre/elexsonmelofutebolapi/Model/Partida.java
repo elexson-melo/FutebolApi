@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Entity
@@ -31,11 +32,11 @@ public class Partida {
     @Column
     private int resultadoVisitante;
     @Column
-    private LocalDateTime dataHora;
+    private Date dataHora;
     @Column
     private String estadio;
 
-    public Partida (String clubeMandante, String clubeVisitante, String resultado, LocalDateTime dataHora, String estadio, int resultadoMandante, int resultadoVisitante) {
+    public Partida (String clubeMandante, String clubeVisitante, String resultado, Date dataHora, String estadio, int resultadoMandante, int resultadoVisitante) {
         this.clubeMandante = clubeMandante;
         this.clubeVisitante = clubeVisitante;
         this.resultado = resultado;
