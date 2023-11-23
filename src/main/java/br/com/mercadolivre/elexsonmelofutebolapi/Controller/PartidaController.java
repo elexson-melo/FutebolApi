@@ -1,6 +1,6 @@
 package br.com.mercadolivre.elexsonmelofutebolapi.Controller;
 
-import br.com.mercadolivre.elexsonmelofutebolapi.Model.Partida;
+import br.com.mercadolivre.elexsonmelofutebolapi.Model.PartidaModel;
 import br.com.mercadolivre.elexsonmelofutebolapi.Service.PartidaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,51 +20,51 @@ public class PartidaController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<Partida> cadastrarPartida(@RequestBody Partida partida) {
-        Partida novaPartida = partidaService.save(partida);
-        return new ResponseEntity<>(novaPartida, HttpStatus.CREATED);
+    public ResponseEntity<PartidaModel> cadastrarPartida(@RequestBody PartidaModel partidaModel) {
+        PartidaModel novaPartidaModel = partidaService.save(partidaModel);
+        return new ResponseEntity<>(novaPartidaModel, HttpStatus.CREATED);
     }
-    @GetMapping
-    public List<Partida> listarPartidas() {
+    @GetMapping("/listar-partidas")
+    public List<PartidaModel> listarPartidas() {
         return partidaService.listarPartidas();
     }
 
     @GetMapping("/by-estadio/{estadio}")
-    public List<Partida> buscarPorEstadio(@RequestParam String estadio) {
+    public List<PartidaModel> buscarPorEstadio(@RequestParam String estadio) {
         return partidaService.buscarPorEstadio(estadio);
     }
 
     @GetMapping("/goleada/{diferenca}")
-    public ResponseEntity<List<Partida>> buscarGoleada(@PathVariable int diferenca) {
-        List<Partida> partidas = partidaService.findGoleada(diferenca);
-        return new ResponseEntity<>(partidas, HttpStatus.OK);
+    public ResponseEntity<List<PartidaModel>> buscarGoleada(@PathVariable int diferenca) {
+        List<PartidaModel> partidaModels = partidaService.findGoleada(diferenca);
+        return new ResponseEntity<>(partidaModels, HttpStatus.OK);
     }
 
     @GetMapping("/semgols")
-    public ResponseEntity<List<Partida>> buscarPartidasSemGols() {
-        List<Partida> partidas = partidaService.buscarPorSemGols();
-        return new ResponseEntity<>(partidas, HttpStatus.OK);
+    public ResponseEntity<List<PartidaModel>> buscarPartidasSemGols() {
+        List<PartidaModel> partidaModels = partidaService.buscarPorSemGols();
+        return new ResponseEntity<>(partidaModels, HttpStatus.OK);
     }
 
     @GetMapping("/clube/{nomeClube}")
-    public ResponseEntity<List<Partida>> buscarPartidasPorClube(@PathVariable String nomeClube,
-                                                                @RequestParam(required = false) String tipo) {
-        List<Partida> partidas = partidaService.buscarPartidasPorClube(nomeClube, tipo);
-        return ResponseEntity.ok(partidas);
+    public ResponseEntity<List<PartidaModel>> buscarPartidasPorClube(@PathVariable String nomeClube,
+                                                                     @RequestParam(required = false) String tipo) {
+        List<PartidaModel> partidaModels = partidaService.buscarPartidasPorClube(nomeClube, tipo);
+        return ResponseEntity.ok(partidaModels);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Partida> obterPartidaPorId(@PathVariable int id) {
-        Partida partida = (Partida) partidaService.obterPartidaPorId(id);
-        if (partida != null) {
-            return ResponseEntity.ok(partida);
+    public ResponseEntity<PartidaModel> obterPartidaPorId(@PathVariable int id) {
+        PartidaModel partidaModel = (PartidaModel) partidaService.obterPartidaPorId(id);
+        if (partidaModel != null) {
+            return ResponseEntity.ok(partidaModel);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Partida> atualizarPartida(@PathVariable Long id, @RequestBody Partida novaPartida) {
-        partidaService.atualizarPartida(id, novaPartida);
+    public ResponseEntity<PartidaModel> atualizarPartida(@PathVariable Long id, @RequestBody PartidaModel novaPartidaModel) {
+        partidaService.atualizarPartida(id, novaPartidaModel);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

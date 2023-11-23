@@ -16,10 +16,10 @@ import java.util.Date;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Table(name = "partidas")
-public class Partida {
+public class PartidaModel {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
     private String clubeMandante;
@@ -32,21 +32,11 @@ public class Partida {
     @Column
     private int resultadoVisitante;
     @Column
-    private Date dataHora;
+    private LocalDateTime dataHora;
     @Column
     private String estadio;
 
-    public Partida (String clubeMandante, String clubeVisitante, String resultado, Date dataHora, String estadio, int resultadoMandante, int resultadoVisitante) {
-        this.clubeMandante = clubeMandante;
-        this.clubeVisitante = clubeVisitante;
-        this.resultado = resultado;
-        this.resultadoMandante = resultadoMandante;
-        this.resultadoVisitante = resultadoVisitante;
-        this.dataHora = dataHora;
-        this.estadio = estadio;
-    }
-
-    public Partida() {
+    public PartidaModel() {
 
     }
 }

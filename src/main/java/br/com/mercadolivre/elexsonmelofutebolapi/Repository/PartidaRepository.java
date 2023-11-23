@@ -1,33 +1,34 @@
 package br.com.mercadolivre.elexsonmelofutebolapi.Repository;
 
-import br.com.mercadolivre.elexsonmelofutebolapi.Model.Partida;
+import br.com.mercadolivre.elexsonmelofutebolapi.Model.PartidaModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface PartidaRepository extends JpaRepository<Partida, Long> {
-    @Query("SELECT p FROM Partida p WHERE ABS(p.resultadoMandante - p.resultadoVisitante) >= :diferenca")
-    List<Partida> findByGoleada(int diferenca);
+public interface PartidaRepository extends JpaRepository<PartidaModel, Long> {
+    @Query("SELECT p FROM PartidaModel p WHERE ABS(p.resultadoMandante - p.resultadoVisitante) >= :diferenca")
+    List<PartidaModel> findByGoleada(int diferenca);
 
-    @Query("SELECT p FROM Partida p WHERE p.resultadoMandante = 0 AND p.resultadoVisitante = 0")
-    List<Partida> buscarPorSemGols();
+    @Query("SELECT p FROM PartidaModel p WHERE p.resultadoMandante = 0 AND p.resultadoVisitante = 0")
+    List<PartidaModel> buscarPorSemGols();
 
-    List<Partida> findByEstadio(String estadio);
+    List<PartidaModel> findByEstadio(String estadio);
 
-    List<Partida> findByClubeMandante(String clubeMandante);
+    List<PartidaModel> findByClubeMandante(String clubeMandante);
 
-    List<Partida> findByClubeVisitante(String clubeVisitante);
+    List<PartidaModel> findByClubeVisitante(String clubeVisitante);
 
-    List<Partida> findByClubeMandanteOrClubeVisitante(String clubeMandante, String clubeVisitante);
-    List<Partida> findByClubeMandanteAndDataHoraAfter(String clubeMandante, Date dataHora);
-    List<Partida> findByClubeVisitanteAndDataHoraAfter(String clubeVisitante, Date dataHora);
+    List<PartidaModel> findByClubeMandanteOrClubeVisitante(String clubeMandante, String clubeVisitante);
 
-    static List<Partida> obterPartidaPorId(int id) {
+    List<PartidaModel> findByClubeMandanteAndDataHoraAfter(String clubeMandante, LocalDateTime dataHora);
+
+    List<PartidaModel> findByClubeVisitanteAndDataHoraAfter(String clubeVisitante, LocalDateTime dataHora);
+
+    static List<PartidaModel> obterPartidaPorId(int id) {
         return null;
     }
 }
