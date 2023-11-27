@@ -5,16 +5,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PartidaRepository extends JpaRepository<PartidaModel, Long> {
+
     @Query("SELECT p FROM PartidaModel p WHERE ABS(p.resultadoMandante - p.resultadoVisitante) >= :diferenca")
     List<PartidaModel> findByGoleada(int diferenca);
 
     @Query("SELECT p FROM PartidaModel p WHERE p.resultadoMandante = 0 AND p.resultadoVisitante = 0")
-    List<PartidaModel> buscarPorSemGols();
+    List<PartidaModel> findBySemGols();
 
     List<PartidaModel> findByEstadio(String estadio);
 
@@ -28,8 +31,8 @@ public interface PartidaRepository extends JpaRepository<PartidaModel, Long> {
 
     List<PartidaModel> findByClubeVisitanteAndDataHoraAfter(String clubeVisitante, LocalDateTime dataHora);
 
-    static List<PartidaModel> obterPartidaPorId(int id) {
-        return null;
-    }
+    Optional<PartidaModel> findById(Long id);
+    
+
 }
 

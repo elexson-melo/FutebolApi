@@ -1,13 +1,10 @@
 package br.com.mercadolivre.elexsonmelofutebolapi.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 
 @Entity
@@ -19,7 +16,7 @@ import java.util.Date;
 public class PartidaModel {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String clubeMandante;

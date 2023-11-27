@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -53,19 +54,15 @@ public class PartidaService {
 
     }
 
-    public List<PartidaModel> obterPartidaPorId(int id) {
-        return PartidaRepository.obterPartidaPorId(id);
-    }
-
     public List<PartidaModel> buscarPorEstadio(String estadio) {
         return partidaRepository.findByEstadio(estadio);
     }
 
     public List<PartidaModel> buscarPorSemGols() {
-        return partidaRepository.buscarPorSemGols();
+        return partidaRepository.findBySemGols();
     }
 
-    public List<PartidaModel> findGoleada(int diferenca) {
+    public List<PartidaModel> buscarPorGoleada(int diferenca) {
         return partidaRepository.findByGoleada(diferenca);
     }
 
@@ -78,14 +75,31 @@ public class PartidaService {
             return partidaRepository.findByClubeMandanteOrClubeVisitante(nomeClube, nomeClube);
         }
     }
-
-    public void deletarPartida(String clubeMandante, String clubeVisitante, LocalDateTime dateTime) {
-    }
-
     public PartidaModel save(PartidaModel partidaModel) {
         return partidaModel;
     }
+
+    public Optional<PartidaModel> obterPartidaPorId(Long id) {
+        return partidaRepository.findById(id);
+    }
+
+    //Metodo para Validar Partidas sem resultado, ou Resultado Negativo, e Partidas com Data e Horario Futuras:
+
+    /*private void validarPartida(PartidaRepository partidaRepository) {
+        if (partidaRepository.getResultado() < 0) {
+            throw new IllegalArgumentException("O resultado não pode ser negativo.");
+        }
+
+        if (partidaRepository.getDataHora().isAfter(Instant.from(LocalDateTime.now()))) {
+            throw new IllegalArgumentException("A data e hora da partida não podem estar no futuro.");
+        }
+    }*/
+
+    public void deletarPartida(String clubeMandante, String clubeVisitante, LocalDateTime dateTime) {
+    }
 }
+
+
 
 
 
