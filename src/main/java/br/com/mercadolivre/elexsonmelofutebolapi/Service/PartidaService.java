@@ -2,11 +2,11 @@ package br.com.mercadolivre.elexsonmelofutebolapi.Service;
 
 import br.com.mercadolivre.elexsonmelofutebolapi.Model.PartidaModel;
 import br.com.mercadolivre.elexsonmelofutebolapi.Repository.PartidaRepository;
+import br.com.mercadolivre.elexsonmelofutebolapi.dto.PartidaDto;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +17,31 @@ public class PartidaService {
     @Autowired
     private PartidaRepository partidaRepository;
 
-    public List<PartidaModel> listarPartidas() {
+    public List<PartidaModel> buscarTodasPartidas() {
         return partidaRepository.findAll();
     }
-    public PartidaModel cadastrarPartida(PartidaModel partidaModel) {
-        if (!isIntervaloRespeitado(partidaModel.getClubeMandante(), partidaModel.getDataHora()) ||
-                !isIntervaloRespeitado(partidaModel.getClubeVisitante(), partidaModel.getDataHora())) {
-            throw new RuntimeException("Intervalo de 48 horas não respeitado para pelo menos um dos clubes.");
-        }
-        return partidaRepository.save(partidaModel);
+    public Optional<PartidaModel> obterPartidaPorId(Long id) {
+        return partidaRepository.findById(id);
     }
+    public void deletarPartida(Long id) {
+        partidaRepository.deleteById(id);
+    }
+    public PartidaModel atualizarPartida(Long id, PartidaDto partidaDto) {
+        Optional<PartidaModel> optionalPartidaModel = partidaRepository.findById(id);
+        if (optionalPartidaModel.isPresent()) {
+            PartidaModel partidaModel = optionalPartidaModel.get();
+            BeanUtils.copyProperties(partidaDto, partidaModel);
+            return partidaRepository.save(partidaModel);
+        } else {
+            return null;
+        }
+    }
+    public PartidaModel cadastrarPartida(PartidaDto partidaDto) {
+        PartidaModel novapartidaModel = new PartidaModel();
+        BeanUtils.copyProperties(partidaDto,novapartidaModel);
+        return partidaRepository.save(novapartidaModel);
+    }
+
     private boolean isIntervaloRespeitado(String clube, LocalDateTime dataHora) {
         List<PartidaModel> partidasClubeMandante = partidaRepository.findByClubeMandanteAndDataHoraAfter(clube, dataHora);
         List<PartidaModel> partidasClubeVisitante = partidaRepository.findByClubeVisitanteAndDataHoraAfter(clube, dataHora);
@@ -34,25 +49,7 @@ public class PartidaService {
         return partidasClubeMandante.isEmpty() && partidasClubeVisitante.isEmpty();
     }
 
-    public void atualizarPartida(Long id, PartidaModel novaPartidaModel) {
-        Optional<PartidaModel> optionalPartida = partidaRepository.findById(id);
-        if (optionalPartida.isPresent()) {
-            PartidaModel partidaModel = optionalPartida.get();
-            partidaModel.setClubeMandante(novaPartidaModel.getClubeMandante());
-            partidaModel.setClubeVisitante(novaPartidaModel.getClubeVisitante());
-            partidaModel.setResultadoMandante(novaPartidaModel.getResultadoMandante());
-            partidaModel.setResultadoVisitante(novaPartidaModel.getResultadoVisitante());
-            partidaModel.setResultado(novaPartidaModel.getResultado());
-            partidaModel.setDataHora(novaPartidaModel.getDataHora());
-            partidaModel.setEstadio(novaPartidaModel.getEstadio());
-
-            partidaRepository.save(partidaModel);
-        }
-    }
-    public void deletarPartida(Long id) {
-        partidaRepository.deleteById(id);
-
-    }
+    // Buscas:
 
     public List<PartidaModel> buscarPorEstadio(String estadio) {
         return partidaRepository.findByEstadio(estadio);
@@ -75,22 +72,14 @@ public class PartidaService {
             return partidaRepository.findByClubeMandanteOrClubeVisitante(nomeClube, nomeClube);
         }
     }
-    public PartidaModel save(PartidaModel partidaModel) {
-        return partidaModel;
-    }
-
-    public Optional<PartidaModel> obterPartidaPorId(Long id) {
-        return partidaRepository.findById(id);
-    }
-
     //Metodo para Validar Partidas sem resultado, ou Resultado Negativo, e Partidas com Data e Horario Futuras:
 
-    /*private void validarPartida(PartidaRepository partidaRepository) {
-        if (partidaRepository.getResultado() < 0) {
+    /*private void validarPartida(PartidaModel partidaModel) {
+        if (partidaModel.getResultadoMandante() < 0 || partidaModel.getResultadoVisitante() < 0) {
             throw new IllegalArgumentException("O resultado não pode ser negativo.");
         }
 
-        if (partidaRepository.getDataHora().isAfter(Instant.from(LocalDateTime.now()))) {
+        if (partidaModel.getDataHora().isAfter(LocalDateTime.now())) {
             throw new IllegalArgumentException("A data e hora da partida não podem estar no futuro.");
         }
     }*/

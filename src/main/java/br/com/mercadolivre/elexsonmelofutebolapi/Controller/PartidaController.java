@@ -2,6 +2,7 @@ package br.com.mercadolivre.elexsonmelofutebolapi.Controller;
 
 import br.com.mercadolivre.elexsonmelofutebolapi.Model.PartidaModel;
 import br.com.mercadolivre.elexsonmelofutebolapi.Service.PartidaService;
+import br.com.mercadolivre.elexsonmelofutebolapi.dto.PartidaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,9 @@ public class PartidaController {
     private PartidaService partidaService;
 
 
-    @PostMapping("/add")
-    public ResponseEntity<PartidaService> cadastrarPartida(@RequestBody PartidaService partidaService) {
-        PartidaService novaPartidaService = partidaService;
-        return new ResponseEntity<>(novaPartidaService, HttpStatus.CREATED);
-    }
     @GetMapping("/partidas")
-    public List<PartidaModel> listarPartidas() {
-        return partidaService.listarPartidas();
+    public List<PartidaModel> buscarTodasPartidas() {
+        return partidaService.buscarTodasPartidas();
     }
 
     @GetMapping("/por-estadio/{estadio}")
@@ -37,8 +33,8 @@ public class PartidaController {
 
     @GetMapping("/goleada/{diferenca}")
     public ResponseEntity<List<PartidaModel>> buscarGoleada(@PathVariable int diferenca) {
-        List<PartidaModel> partidaModels = partidaService.buscarPorGoleada(diferenca);
-        return new ResponseEntity<>(partidaModels, HttpStatus.OK);
+        List<PartidaModel> partidaModel = partidaService.buscarPorGoleada(diferenca);
+        return new ResponseEntity<>(partidaModel, HttpStatus.OK);
     }
 
     @GetMapping("/semgols")
@@ -59,10 +55,20 @@ public class PartidaController {
         return partida.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
     }
+    @PostMapping("/add")
+    public PartidaModel cadastrarPartida(@RequestBody PartidaDto partidaDto) {
+        return partidaService.cadastrarPartida(partidaDto);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<PartidaModel> atualizarPartida(@PathVariable Long id, @RequestBody PartidaModel novaPartidaModel) {
-        partidaService.atualizarPartida(id, novaPartidaModel);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<PartidaModel> atualizarPartida(@PathVariable Long id, @RequestBody PartidaDto partidaDto) {
+        PartidaModel partidaAtualizada = partidaService.atualizarPartida(id, partidaDto);
+
+        if (partidaAtualizada != null) {
+            return new ResponseEntity<>(partidaAtualizada, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/{clubeMandante}/{clubeVisitante}/{dataHora}")
@@ -75,7 +81,6 @@ public class PartidaController {
     public void deletarPartida(@PathVariable Long id) {
         partidaService.deletarPartida(id);
     }
-
 }
 
 

@@ -31,8 +31,5 @@ public interface PartidaRepository extends JpaRepository<PartidaModel, Long> {
 
     List<PartidaModel> findByClubeVisitanteAndDataHoraAfter(String clubeVisitante, LocalDateTime dataHora);
 
-    Optional<PartidaModel> findById(Long id);
-    
-
 }
 
