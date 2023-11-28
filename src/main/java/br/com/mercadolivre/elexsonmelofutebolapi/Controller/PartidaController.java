@@ -21,7 +21,7 @@ public class PartidaController {
     private PartidaService partidaService;
 
 
-    @GetMapping("/partidas")
+    @GetMapping("/listar")
     public List<PartidaModel> buscarTodasPartidas() {
         return partidaService.buscarTodasPartidas();
     }
@@ -55,7 +55,7 @@ public class PartidaController {
         return partida.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
     }
-    @PostMapping("/add")
+    @PostMapping("/adicionar")
     public PartidaModel cadastrarPartida(@RequestBody PartidaDto partidaDto) {
         return partidaService.cadastrarPartida(partidaDto);
     }
@@ -77,7 +77,7 @@ public class PartidaController {
         LocalDateTime dateTime = LocalDateTime.parse(dataHora);
         partidaService.deletarPartida(clubeMandante, clubeVisitante, dateTime);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/excluir/{id}")
     public void deletarPartida(@PathVariable Long id) {
         partidaService.deletarPartida(id);
     }
