@@ -8,7 +8,7 @@
 - USE partidaDB;
 - CREATE TABLE partidas(
 - clubeVisitante VARCHAR(255),
-- clubeMandanteVARCHAR(255),
+- clubeMandante VARCHAR(255),
 - data_Hora DATETIME(6),
 - estadio VARCHAR(255),
 - resultado VARCHAR(255),
