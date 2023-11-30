@@ -20,6 +20,6 @@
 ### Segunda Tarefa: Inserir múltiplos dados nesta tabela:
 
 - INSERT INTO partidas
-(clubemandante,clubevisitante,datahora,estadio,resultado,resultadomandante,resultadovisitante)
+(clubemandante,clubevisitante,data_hora,estadio,resultado,resultadomandante,resultadovisitante)
 VALUES
 ('Brasil','Argentina','2022-09-16 22:30:00','Maracana','0x1','0','1');
