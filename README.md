@@ -29,7 +29,6 @@
 
 - DELETE FROM partidas
 - WHERE clubeMandante= 'Chile'
-- WHERE clubeVisitante= 'Chile'
 - SELECT * FROM partidas;
 
 ### Quarta Tarefa: Selecionar algumas partidas específicas (selecionar partidas com goleadas): 
