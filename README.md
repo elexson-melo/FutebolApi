@@ -17,9 +17,10 @@
 - primary key (id)
 - );
   
-### Segunda Tarefa: Inserir múltiplos dados nesta tabela:
+### Segunda Tarefa: Inserir múltiplos dados nesta tabela(de uma só vez):
 
-- INSERT INTO partidas
-(clubemandante,clubevisitante,data_hora,estadio,resultado,resultadomandante,resultadovisitante)
-VALUES
-('Brasil','Argentina','2022-09-16 21:30:00','Maracana','0x1','0','1');
+- INSERT INTO partidas1
+  (clubemandante,clubevisitante,data_hora,estadio,resultado,resultadomandante,resultadovisitante)
+- SELECT
+  ('Brasil','Argentina','2022-09-16 21:30:00','Maracana','0x1','0','1')
+- FROM partidas;
