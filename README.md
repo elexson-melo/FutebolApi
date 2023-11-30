@@ -22,4 +22,4 @@
 - INSERT INTO partidas
 (clubemandante,clubevisitante,data_hora,estadio,resultado,resultadomandante,resultadovisitante)
 VALUES
-('Brasil','Argentina','2022-09-16 22:30:00','Maracana','0x1','0','1');
+('Brasil','Argentina','2022-09-16 21:30:00','Maracana','0x1','0','1');
