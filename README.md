@@ -24,3 +24,12 @@
 - SELECT
   ('Brasil','Argentina','2022-09-16 21:30:00','Maracana','0x1','0','1')
 - FROM partidas;
+
+### Terceira Tarefa: Deletar somente Partidas de um determinado clube:
+
+- DELETE FROM partidas
+- WHERE clubeMandante= 'Chile'
+- WHERE clubeVisitante= 'Chile'
+- SELECT * FROM partidas;
+
+### Quarta Tarefa: Selecionar algumas partidas específicas (selecionar partidas com goleadas): 
