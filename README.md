@@ -33,5 +33,5 @@
 
 ### Quarta Tarefa: Selecionar algumas partidas específicas (selecionar partidas com goleadas): 
 
-- SELECT clubeMandante Brasil, clubeVisitante Argentina FROM partidas
+- SELECT clubeMandante, clubeVisitante FROM partidas
 - WHERE resultadoMandante >= 3 and resultadoVisitante <= 3; 
