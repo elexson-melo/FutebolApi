@@ -7,11 +7,11 @@
 - CREATE DATABASE partidaDB;
 - CREATE TABLE partidas(
 - id INT not null auto_increment,
-- clubeVisitante VARCHAR(255),
-- clubeMandanteVARCHAR(255),
+- clubeVisitante VARCHAR(30),
+- clubeMandanteVARCHAR(30),
 - data_Hora DATETIME(6),
-- estadio VARCHAR(255),
-- resultado VARCHAR(255),
+- estadio VARCHAR(30),
+- resultado VARCHAR(30),
 - resultadoMandante INT,
 - resultadoVisitante INT,
 - primary key (id)
