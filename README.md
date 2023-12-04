@@ -4,18 +4,18 @@
 
 ### Primeira Tarefa: Criar Tabela Partidas:
 
-- CREATE DATABASE partidaDB;
-- CREATE TABLE partidas(
-- id INT not null auto_increment,
-- clube_visitante VARCHAR(30),
-- clube_mandanteVARCHAR(30),
-- data_Hora DATETIME(6),
-- estadio VARCHAR(30),
-- resultado VARCHAR(30),
-- resultado_mandante INT,
-- resultado_visitante INT,
-- primary key (id)
-- );
+ CREATE DATABASE partidaDB;
+ CREATE TABLE partidas(
+ id INT not null auto_increment,
+ clube_visitante VARCHAR(30),
+ clube_mandanteVARCHAR(30),
+ data_Hora DATETIME(6),
+ estadio VARCHAR(30),
+ resultado VARCHAR(30),
+ resultado_mandante INT,
+ resultado_visitante INT,
+ primary key (id)
+ );
   
 ### Segunda Tarefa: Inserir múltiplos dados nesta tabela(de uma só vez):
 
