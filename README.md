@@ -19,12 +19,13 @@
   
 ### Segunda Tarefa: Inserir múltiplos dados nesta tabela(de uma só vez):
 
-- INSERT INTO partidas1
+- INSERT INTO partidas
   (clubemandante,clubevisitante,data_hora,estadio,resultado,resultadomandante,resultadovisitante)
-- SELECT
-  ('Brasil','Argentina','2022-09-16 21:30:00','Maracana','0x1','0','1')
-- FROM partidas;
-
+- VALUES
+  ('Venezuela','Brasil','2022-10-28 22:00:00','Cachamay','2x5','2','5'),
+  ('Bolivia','Peru','2022-10-26 21:00:00','Nunes','4x1','4','1'),
+  ('Argentina','Colombia','2022-10-25 21:30:00','Kempes','2x2','2','2');
+  
 ### Terceira Tarefa: Deletar somente Partidas de um determinado clube:
 
 - DELETE FROM partidas
